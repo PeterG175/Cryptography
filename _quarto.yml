@@ -1,0 +1,19 @@
+format:
+  html:
+    page-layout: full
+
+project:
+  type: website
+  output-dir: docs
+
+website:
+  title: "Svitlo Cryptography Course"
+  sidebar:
+     style: "docked"
+     contents:
+       - text: "Home"
+         href: Introduction.ipynb
+       - section: "Lessons"
+         contents:
+           - text: "Lesson 1"
+             href: Lesson 1.ipynb
