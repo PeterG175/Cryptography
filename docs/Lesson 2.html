@@ -1,0 +1,976 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.38">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>lesson-2 – Svitlo Cryptography Course</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-6a85eee24a8917aa54068f8feecfb4f1.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="nav-sidebar docked quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./Lesson 1.html">Lessons</a></li><li class="breadcrumb-item"><a href="./Lesson 2.html">Lesson 2</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Svitlo Cryptography Course</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Introduction.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Home</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Lessons</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Lesson 1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lesson 1</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Lesson 2.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Lesson 2</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Lesson 3.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lesson 3</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Lesson 4.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lesson 4</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Lesson 5.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lesson 5</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    
+<!-- main -->
+<main class="content column-page-right" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./Lesson 1.html">Lessons</a></li><li class="breadcrumb-item"><a href="./Lesson 2.html">Lesson 2</a></li></ol></nav></header>
+
+
+
+
+<table class="caption-top table">
+<tbody>
+<tr class="odd">
+<td>Lesson 2</td>
+</tr>
+</tbody>
+</table>
+<p>Within this lesson, we will learn about how to find the prime factors of a number. We will then learn the definition of a coprime number. Lastly, you will be introduced to a new cipher!</p>
+<section id="section-1-prime-factor-decomposition" class="level1">
+<h1>Section 1: Prime factor decomposition</h1>
+<p>In Mathematics, you have probably heard of a prime number before. Prime numbers are numbers which can only be divided by one and itself. Examples of prime numbers include: <span class="math inline">\(2,3,5,7,11,13,...\)</span></p>
+<p>An example of a number which is not prime would be <span class="math inline">\(15\)</span>, because we know that <span class="math inline">\(15= 5 \times 3\)</span>. Every number is either a prime number, or is made by multiplying prime numbers together. You can think of prime numbers as being the building blocks of every other number. As prime numbers are so important, then it’s useful to be able to find out what prime numbers are used to make up a number. This is called prime factor decomposition, and we will look at an example now.</p>
+<p>Lastly, it is important to remember that <span class="math inline">\(1\)</span> is not a prime number. The definition of a prime number is that the number can only be divided by one AND itself. The keyword here is ‘and’, because this implies that a prime number has to have exactly two factors. However, when we look at the number <span class="math inline">\(1\)</span>, we can see that it only has one as a factor, as <span class="math inline">\(1 = 1 \times 1\)</span>. As the number <span class="math inline">\(1\)</span> only has one factor, then it is not prime.</p>
+<section id="example-1" class="level3">
+<h3 class="anchored" data-anchor-id="example-1">Example 1</h3>
+<p>Find the prime factor decomposition of <span class="math inline">\(150\)</span>. With this example I have created step by step images showing you what to do. I will talk through each of the images so you can follow along and see what is happening at each step.</p>
+<ol type="1">
+<li>For the first step, all we have to do is simply write the number at the top of the page.</li>
+<li>In step 2, we have picked two numbers that multiply to give <span class="math inline">\(150\)</span>. I have chosen <span class="math inline">\(3\)</span> and <span class="math inline">\(50\)</span>.</li>
+<li>We then look to see if any of these numbers are prime. As <span class="math inline">\(3\)</span> is a prime number, we put a red circle around it to show that it’s then end of that branch.</li>
+<li>We then repeat the process and split 50 into two numbers which multiply to give <span class="math inline">\(50\)</span>. I chose <span class="math inline">\(25\)</span> and <span class="math inline">\(2\)</span>.</li>
+<li>As <span class="math inline">\(2\)</span> is prime, we put a red circle around it.</li>
+<li>We then split <span class="math inline">\(25\)</span> into two numbers which multiply to give <span class="math inline">\(25\)</span>. The only two numbers which do that are going to be <span class="math inline">\(5\)</span> and <span class="math inline">\(5\)</span>.</li>
+<li>As 5 is prime, we put red circles around both the number <span class="math inline">\(5\)</span>’s.</li>
+<li>As every branch finishes with a number in a red circle, then our tree is complete. We can write down every number in a red circle and say that they will multiply to give the number at the very top. In this case, <span class="math inline">\(150 = 5^2 \times 2 \times 3\)</span>. Note that we have <span class="math inline">\(5^2\)</span> because the number 5 appears twice.</li>
+</ol>
+<div class="factor-tree-widget">
+  <img id="ft-image" src="pfdfolder/pfd1.png" alt="Factor tree step">
+  <div class="ft-controls">
+    <button id="ft-back">◀ Back</button>
+    <span id="ft-counter">Step 1 of 8</span>
+    <button id="ft-next">Next ▶</button>
+  </div>
+</div>
+
+<style>
+.factor-tree-widget {
+  max-width: 600px;
+  margin: 1.5rem auto;
+  text-align: center;
+}
+.factor-tree-widget img {
+  width: 100%;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+}
+.ft-controls {
+  margin-top: 0.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+.ft-controls button {
+  padding: 0.4rem 1rem;
+  font-size: 1rem;
+  cursor: pointer;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  background: #f5f5f5;
+}
+.ft-controls button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+</style>
+
+<script>
+(function() {
+  const totalSteps = 8;
+  let currentStep = 1;
+  const img = document.getElementById('ft-image');
+  const counter = document.getElementById('ft-counter');
+  const backBtn = document.getElementById('ft-back');
+  const nextBtn = document.getElementById('ft-next');
+
+  function render() {
+    img.src = `pfdfolder/pfd${currentStep}.png`;
+    counter.textContent = `Step ${currentStep} of ${totalSteps}`;
+    backBtn.disabled = currentStep === 1;
+    nextBtn.disabled = currentStep === totalSteps;
+  }
+
+  backBtn.addEventListener('click', () => {
+    if (currentStep > 1) { currentStep--; render(); }
+  });
+  nextBtn.addEventListener('click', () => {
+    if (currentStep < totalSteps) { currentStep++; render(); }
+  });
+
+  render();
+})();
+</script>
+<p>Now we have found all of the prime factors that make up <span class="math inline">\(150\)</span>. We will look at another example, just to make sure that you’re happy with it.</p>
+</section>
+<section id="example-2" class="level3">
+<h3 class="anchored" data-anchor-id="example-2">Example 2</h3>
+<p>Find the prime factor decomposition of <span class="math inline">\(144\)</span>. This is exactly the same as the last example only using a different number. I will now talk through each step included in the diagram below.</p>
+<ol type="1">
+<li>First step is to write the starting number at the top of the page.</li>
+<li>Then we choose two numbers which, when multiplied together, give the starting number. We draw arrows to these and write them below, for this case I chose <span class="math inline">\(8\)</span> and <span class="math inline">\(18\)</span>.</li>
+<li>We can notice that both <span class="math inline">\(8\)</span> and <span class="math inline">\(18\)</span> are not prime meaning that we need to repeat our previous step and pick two numbers which multiply to give <span class="math inline">\(8\)</span> and two numbers which multiply to give <span class="math inline">\(18\)</span>. I chose <span class="math inline">\(2\)</span> and <span class="math inline">\(4\)</span>, and <span class="math inline">\(2\)</span> and <span class="math inline">\(9\)</span>.</li>
+<li>We can notice that <span class="math inline">\(2\)</span> is prime so we circle them.</li>
+<li>We then split <span class="math inline">\(9\)</span> up into <span class="math inline">\(3 \times 3\)</span> and <span class="math inline">\(4\)</span> into <span class="math inline">\(2 \times 2\)</span>.</li>
+<li>As both <span class="math inline">\(3\)</span> and <span class="math inline">\(2\)</span> are prime, we circle them.</li>
+<li>Now that the tree is complete and every branch ends in a red circle, then we can multiply all the numbers in the red circles together to give us our starting number. As <span class="math inline">\(2\)</span> appears 4 times, and <span class="math inline">\(3\)</span> appears twice, then we have <span class="math inline">\(144=2^4 \times 3^2\)</span></li>
+</ol>
+<div class="factor-tree-widget2">
+  <img id="ft-image2" src="pfdfolder2/pfd21.png" alt="Factor tree step 2">
+  <div class="ft-controls">
+    <button id="ft-back2">◀ Back </button>
+    <span id="ft-counter2">Step 1 of 8 </span>
+    <button id="ft-next2">Next ▶</button>
+  </div>
+</div>
+
+<style>
+.factor-tree-widget2 {
+  max-width:600px;
+  margin: 1.5rem auto;
+  text-align: center;
+}
+.factor-tree-widget2 img {
+  width: 100%;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+}
+.ft-controls {
+  margin-top: 0.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+.ft-controls button {
+  padding: 0.4rem 1rem;
+  font-size: 1rem;
+  cursor: pointer;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  background: #f5f5f5;
+}
+.ft-controls button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+</style>
+
+<script>
+(function() {
+  const totalSteps = 7;
+  let currentStep = 1;
+  const img = document.getElementById('ft-image2');
+  const counter = document.getElementById('ft-counter2');
+  const backBtn = document.getElementById('ft-back2');
+  const nextBtn = document.getElementById('ft-next2');
+
+  function render() {
+    img.src = `pfdfolder2/pfd2${currentStep}.png`;
+    counter.textContent = `Step ${currentStep} of ${totalSteps}`;
+    backBtn.disabled = currentStep === 1;
+    nextBtn.disabled = currentStep === totalSteps;
+  }
+
+  backBtn.addEventListener('click', () => {
+    if (currentStep > 1) { currentStep--; render(); }
+  });
+  nextBtn.addEventListener('click', () => {
+    if (currentStep < totalSteps) { currentStep++; render(); }
+  });
+
+  render();
+})();
+</script>
+<p>Hopefully you now understand how to draw a factor tree to find the prime decomposition of a number. We will practice your new skills using some questions!</p>
+</section>
+</section>
+<section id="practice-questions-prime-factor-decomposition" class="level1">
+<h1>Practice questions: Prime factor decomposition</h1>
+<ol type="1">
+<li>Find the prime factor decomposition of <span class="math inline">\(182\)</span>.</li>
+<li>Below is a diagram of a factor tree. Unfortunately, my pen broke and ink spilled all over the paper, covering some of the tree. Can you complete the factor tree to find out what is beneath the ink?</li>
+</ol>
+<div id="cell-prime-factor-decomp-example" class="cell" data-execution_count="1">
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Lesson 2_files/figure-html/prime-factor-decomp-example-output-1.png" id="prime-factor-decomp-example" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<ol start="3" type="1">
+<li>If I have a number that ends in a zero, what is the minimum number of prime factors it can have?</li>
+</ol>
+<section id="questions-to-make-you-think" class="level3">
+<h3 class="anchored" data-anchor-id="questions-to-make-you-think">Questions to make you think</h3>
+<ol type="1">
+<li>Find the prime factor tree of <span class="math inline">\(p^3+3p^2+2p\)</span> using the following information:
+<ul>
+<li><span class="math inline">\(p\)</span> is prime</li>
+<li><span class="math inline">\(7\)</span> is one of the prime factors</li>
+<li><span class="math inline">\(p\)</span> is not equal to <span class="math inline">\(7\)</span></li>
+<li>There are four prime factors</li>
+</ul></li>
+</ol>
+</section>
+</section>
+<section id="section-2-coprime-numbers" class="level1">
+<h1>Section 2: Coprime numbers</h1>
+<p>In our previous section, we looked at prime numbers which you have probably heard of before in school. Now I want to introduce you to something that you have probably never seen before, but you will need it to understand our next cipher, so make sure you understand it!</p>
+<section id="what-are-coprime-numbers" class="level3">
+<h3 class="anchored" data-anchor-id="what-are-coprime-numbers">What are coprime numbers?</h3>
+<p>Coprime numbers are a pair of numbers which do not share any prime factors with each other. For example, <span class="math inline">\(16\)</span> and <span class="math inline">\(21\)</span> are coprime, because if we look at the prime factor decompositions, then <span class="math inline">\(16=2^4\)</span> and <span class="math inline">\(21=3 \times 7\)</span>. As you can see, these do not share any prime factors meaning they are coprime.</p>
+<p>However, if we wanted to see if <span class="math inline">\(21\)</span> and <span class="math inline">\(35\)</span> are coprime, then we first need to split them up into their prime factor decomposition. This gives us <span class="math inline">\(21 = 7 \times 3\)</span> and <span class="math inline">\(35 = 7 \times 5\)</span>. As you can see, both <span class="math inline">\(21\)</span> and <span class="math inline">\(35\)</span> share the number <span class="math inline">\(7\)</span> as one of their prime factors, meaning that <span class="math inline">\(21\)</span> and <span class="math inline">\(35\)</span> are not coprime.</p>
+</section>
+<section id="coprime-numbers-in-terms-of-gcd" class="level3">
+<h3 class="anchored" data-anchor-id="coprime-numbers-in-terms-of-gcd">Coprime numbers in terms of gcd</h3>
+<p>Another way of defining a coprime numbers is by saying <em>‘Two numbers are coprime if their greatest common divisor is equal to one’.</em> Mathematically, we write that two numbers (we can call these numbers <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span>) are coprime if <span class="math inline">\(gcd(a,b)=1\)</span>, where <span class="math inline">\(gcd(a,b)\)</span> means the greatest common divisor of <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span>.</p>
+<p>Now just in case you have never heard of the <em>greatest common divisor</em> before, here is the definition. The greatest common divisor of two numbers is the largest number which perfectly divides the two numbers. For example, the greatest common divisor between <span class="math inline">\(24\)</span> and <span class="math inline">\(60\)</span> is equal to <span class="math inline">\(12\)</span>, so we would write <span class="math inline">\(gcd(24,60)=12\)</span>.</p>
+<p>To find the greatest common divisor, we look at the shared prime factors between the two numbers. We can see that the factor trees of <span class="math inline">\(24\)</span> and <span class="math inline">\(60\)</span> are, <span class="math inline">\(24=2^3 \times 3\)</span> and <span class="math inline">\(60=2^2 \times 3 \times 5\)</span>. If we were to put these numbers into a Venn diagram, we would get:</p>
+<div id="cell-Venn-diagram-of-factors" class="cell" data-execution_count="2">
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Lesson 2_files/figure-html/venn-diagram-of-factors-output-1.png" id="venn-diagram-of-factors" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>We can see that in the middle of the Venn diagram, we have <span class="math inline">\(2, 2, 3\)</span>. When we multiply these together, we get the greatest common divisor. We can double check our answer and calculate that <span class="math inline">\(2 \times 2 \times 3 = 12\)</span> just like we expected!</p>
+<p>When you use both of these definitions for a coprime number, you will see that they mean the same thing, only they’ve been said differently. Using the first definition, we can see that two numbers can only be coprime if they do not share any prime factors, and if two numbers do not share any prime factors, then their greatest common divisor must be equal to zero.</p>
+<p>Like usual, we are going to have a look at an example before doing any practice questions.</p>
+</section>
+<section id="example-1-1" class="level3">
+<h3 class="anchored" data-anchor-id="example-1-1">Example 1</h3>
+<p>Find the greatest common divisor of <span class="math inline">\(52\)</span> and <span class="math inline">\(45\)</span>. Using this information, are they coprime?</p>
+<p>The first thing we need to do is find the prime factor decompositions of <span class="math inline">\(52\)</span> and <span class="math inline">\(45\)</span>. I’m not going to do this for you as we have already done it in the last section. But once you write out the factor trees, you should get: <span class="math inline">\(52 = 2^2 \times 13\)</span> and <span class="math inline">\(45 = 3^2 \times 5\)</span>.</p>
+<p>The next step is to put these into a Venn diagram:</p>
+<div id="cell-Venn-diagram-of-factors-example" class="cell" data-execution_count="4">
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Lesson 2_files/figure-html/venn-diagram-of-factors-example-output-1.png" id="venn-diagram-of-factors-example" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>We can see that <span class="math inline">\(45\)</span> and <span class="math inline">\(52\)</span> do not share any prime factors, meaning that their greatest common divisor is equal to <span class="math inline">\(1\)</span>. We can write <span class="math inline">\(gcd(45,52)=1\)</span>. As <span class="math inline">\(45\)</span> and <span class="math inline">\(52\)</span> do not share any prime factors, then they must be coprime.</p>
+<p>Hopefully that example makes sense to you, but if it doesn’t then you can always ask me in the next lesson. Now it’s time for some practice questions.</p>
+</section>
+</section>
+<section id="practice-questions-coprime-numbers" class="level1">
+<h1>Practice questions: coprime numbers</h1>
+<ol type="1">
+<li>Are <span class="math inline">\(27\)</span> and <span class="math inline">\(51\)</span> coprime? If they aren’t, then what prime factors do they share?</li>
+<li>Are <span class="math inline">\(33\)</span> and <span class="math inline">\(65\)</span> coprime? If they aren’t, then what prime factors do they share?</li>
+<li>Find the greatest common divisor of <span class="math inline">\(36\)</span> and <span class="math inline">\(80\)</span>. Are these numbers coprime?</li>
+</ol>
+<section id="questions-to-get-you-thinking" class="level3">
+<h3 class="anchored" data-anchor-id="questions-to-get-you-thinking">Questions to get you thinking</h3>
+<ol type="1">
+<li>Imagine we have some integer <span class="math inline">\(x\)</span>. What is <span class="math inline">\(gcd(1,x)\)</span>? What does this tell you about the number <span class="math inline">\(1\)</span> and whether it is coprime or not?</li>
+<li>Imagine we have two integers <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span> such that <span class="math inline">\(gcd(a,b)=c\)</span>, where <span class="math inline">\(c\)</span> is an integer. What is <span class="math inline">\(gcd(a,ab)\)</span>? (Note that <span class="math inline">\(ab\)</span> means <span class="math inline">\(a \times b\)</span>)</li>
+</ol>
+</section>
+</section>
+<section id="section-3-affine-ciphers" class="level1">
+<h1>Section 3: Affine ciphers</h1>
+<p>This lesson course is a cryptography course, and considering we have not done any cryptography in the last two sections, I think it is best that we look at a new cipher. For the sake of you not having to flick between this weeks lesson and last weeks lesson, I’m going to include the English and Ukrainian alphabet here, as you will need it later.</p>
+<div id="cell-alphabet-with-numbers-1" class="cell" data-execution_count="5">
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Lesson 2_files/figure-html/alphabet-with-numbers-1-output-1.png" id="alphabet-with-numbers-1" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<div id="cell-ukrainian-alphabet-in-numbers-1" class="cell" data-execution_count="6">
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Lesson 2_files/figure-html/ukrainian-alphabet-in-numbers-1-output-1.png" id="ukrainian-alphabet-in-numbers-1" width="1000" height="100" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Last week we looked at a shift cipher, where you add a ‘shift’ onto the plaintext to change it into ciphertext. With an affine cipher, we do two changes to the plaintext. We first multiply the plaintext by some number, then add a shift onto our multiplied plaintext. An affine ciper (for the English alphabet) is defined as follows:</p>
+<p>Choose a number <span class="math inline">\(\alpha\)</span> such that <span class="math inline">\(gcd(26,\alpha)=1\)</span> then choose some number <span class="math inline">\(\beta\)</span>. The cipher sends each plaintext letter <span class="math inline">\(p\)</span> to ciphertext letter <span class="math inline">\(C= \alpha p + \beta \text{ (mod 26)}\)</span></p>
+<p>Time to look at some examples using this cipher.</p>
+<section id="example-1-2" class="level3">
+<h3 class="anchored" data-anchor-id="example-1-2">Example 1</h3>
+<p>Encrypt the plaintext letter ‘H’ using an affine cipher with <span class="math inline">\(\alpha = 5\)</span> and <span class="math inline">\(\beta = 9\)</span>.</p>
+<p>The first step will be to convert the letter ‘H’ into a number. Using the alphabet above, we can see that: <span class="math display">\[H=7\]</span></p>
+<p>Now we can use our cipher. First we multiply our plaintext by our <span class="math inline">\(\alpha\)</span>, then we add our <span class="math inline">\(\beta\)</span>. This means we will have: <span class="math display">\[5 \times 7 +9 = 35 + 9 = 44 \equiv 18 \text{ (mod 26)}\]</span></p>
+<p>Then to convert <span class="math inline">\(18\)</span> into our ciphertext, we can check the alphabet above. We can see that ‘S’=18. This gives us our final answer, so we know that using an affine cipher with <span class="math inline">\(\alpha = 5\)</span> and <span class="math inline">\(\beta = 9\)</span> the plaintext letter ‘H’ will be encrypted into the ciphertext letter ‘S’.</p>
+</section>
+<section id="example-2-1" class="level3">
+<h3 class="anchored" data-anchor-id="example-2-1">Example 2</h3>
+<p>Encrypt the Ukrainian word ‘вівця’ using an affine cipher with <span class="math inline">\(\alpha = 26\)</span> and <span class="math inline">\(\beta = 3\)</span>. Remember that because we are now using the Ukrainian alphabet, all calculations need to be done <span class="math inline">\(\text{mod 33}\)</span>.</p>
+<p>First, we will convert our word into numbers. We can use the alphabet above to give: <span class="math display">\[\text{в}=2, \text{і}=11, \text{ц}=26, \text{я}=32\]</span></p>
+<p>Once we have our numbers, then we can use the cipher. We will get: <span class="math display">\[2 \times 26+3=52+3=55 \equiv 22 \text{ (mod 33)}\]</span> <span class="math display">\[11 \times 26+3=286+3=289 \equiv 25 \text{ (mod 33)}\]</span> <span class="math display">\[26 \times 26+3=676+3=679 \equiv 19 \text{ (mod 33)}\]</span> <span class="math display">\[32 \times 26+3=832+3=835 \equiv 7 \text{ (mod 33)}\]</span></p>
+<p>Now we can convert these numbers back into letters. Using the Ukrainian alphabet above we will get: <span class="math display">\[22=\text{т},25=\text{х},19=\text{п},10=\text{и}\]</span></p>
+<p>When we encrypt the work ‘вівця’ using an affine cipher with <span class="math inline">\(\alpha = 26\)</span> and <span class="math inline">\(\beta = 3\)</span> then we get the ciphertext ‘тхтпи’.</p>
+</section>
+<section id="example-3" class="level3">
+<h3 class="anchored" data-anchor-id="example-3">Example 3</h3>
+<p>I have encrypted an English word using an affine cipher with <span class="math inline">\(\alpha = 5\)</span> and <span class="math inline">\(\beta = 10\)</span>. The ciphertext is ‘QKBER’. What is the English word that I encrypted?</p>
+<p>The first step is to convert the ciphertext into numbers. Using the alphabet we can see that: <span class="math display">\[Q=16,K=10,B=1,E=4,R=17\]</span></p>
+<p>We know that for an affine cipher: <span class="math display">\[\text{Ciphertext} = \alpha \times \text{Plaintext} + \beta \text{ (mod 26)}\]</span></p>
+<p>Rearranging this will give: <span class="math display">\[ \text{Ciphertext} - \beta = \alpha \times \text{Plaintext} \text{ (mod 26)}\]</span></p>
+<p>We need to be a little bit clever for this next step, as we need to make sure that the value we calculate for the Plaintext is an integer. For the first letter (Q), we will do: <span class="math display">\[16-10=5 \times \text{Plaintext} \text{ (mod 26)} \implies 6=5 \times \text{Plaintext} \text{ (mod 26)}\]</span></p>
+<p>We can see here that if we divided both sides of the equation by <span class="math inline">\(5\)</span>, then we would not get an integer value for <span class="math inline">\(\text{Plaintext}\)</span>. This means we need to keep on adding 26 onto the left hand side of the equation until we get a multiple of <span class="math inline">\(5\)</span>. We can add <span class="math inline">\(6\)</span> onto multiples of <span class="math inline">\(26\)</span> until we find a multiple of <span class="math inline">\(5\)</span>: <span class="math display">\[26+6=32\]</span> <span class="math display">\[52+6=58\]</span> <span class="math display">\[78+6=84\]</span> <span class="math display">\[104+6=110\]</span></p>
+<p>We can see that <span class="math inline">\(110\)</span> is a multiple of <span class="math inline">\(5\)</span>, meaning we can write:<span class="math display">\[6=5 \times \text{Plaintext} \text{ (mod 26)} \implies 110 = 5 \times \text{Plaintext} \text{ (mod 26)}\]</span></p>
+<p>Now we are able to divide both sides of the equation by <span class="math inline">\(5\)</span>, to give:<span class="math display">\[110 = 5 \times \text{Plaintext} \text{ (mod 26)} \implies 22 = \text{Plaintext} \text{ (mod 26)}\]</span></p>
+<p>We can see that <span class="math inline">\(22\)</span> corresponds to W. Meaning that the first letter of our plaintext is W. We can now use the same method to find the remaining letters for our plaintext.</p>
+<p>For our next letter K: <span class="math display">\[10-10=5 \times \text{Plaintext} \text{ (mod 26)} \implies 0=5 \times \text{Plaintext} \text{ (mod 26)}\]</span></p>
+<p>This means that <span class="math inline">\(\text{Plaintext}\)</span> must be equal to zero. We do not need to start adding 26. As <span class="math inline">\(\text{Plaintext}\)</span> is equal to zero, then the next letter in our decoded message must be A.</p>
+<p>For our third letter B: <span class="math display">\[1-10=5 \times \text{Plaintext} \text{ (mod 26)} \implies -9=5 \times \text{Plaintext} \text{ (mod 26)}\]</span></p>
+<p>We can add multiples of 26 onto the left hand side of this equation to get: <span class="math display">\[95=5 \times \text{Plaintext} \text{ (mod 26)}\]</span></p>
+<p>Dividing both sides by 5 we will get:<span class="math display">\[95=5 \times \text{Plaintext} \text{ (mod 26)} \implies 19 = \text{Plaintext} \text{ (mod 26)}\]</span></p>
+<p>So our third letter in our decoded work will be T.</p>
+<p>For our fourth letter E:</p>
+<p><span class="math display">\[4-10=5 \times \text{Plaintext} \text{ (mod 26)} \implies -6=5 \times \text{Plaintext} \text{ (mod 26)}\]</span></p>
+<p>For this equation we can see that we only need to add 26 once to the left hand side to get a multiple of 5. Doing this, we will get: <span class="math display">\[-6=5 \times \text{Plaintext} \text{ (mod 26)} \implies 20=5 \times \text{Plaintext} \text{ (mod 26)} \implies 4 = \text{Plaintext} \text{ (mod 26)}\]</span></p>
+<p>This means that our fourth decoded letter is E. Note how for this specific letter, the ciphertext is equal to the plaintext.</p>
+<p>For our final letter R:</p>
+<p><span class="math display">\[17-10=5 \times \text{Plaintext} \text{ (mod 26)} \implies 7=5 \times \text{Plaintext} \text{ (mod 26)}\]</span></p>
+<p>By adding multiples of 26 to the left hand side of the equation, we will get:<span class="math display">\[7=5 \times \text{Plaintext} \text{ (mod 26)} \implies 85=5 \times \text{Plaintext} \text{ (mod 26)} \implies 17 = \text{Plaintext} \text{ (mod 26)}\]</span></p>
+<p>This means that our final decoded letter is R.</p>
+<p>Our last step is to put all of our decoded letters together. By doing that, we can see that the decrypted message is WATER.</p>
+<p>Now that we have finished our last example for affine ciphers, it is time for some practice questions. I would like to remind you that this is difficult Maths, as you are using concepts which you likely have never seen before. So do not expect to get it all correct first try. My best advice would be to just have a go! Making mistakes is the best way to learn, and if you have any questions then you can ask me in the lesson (or put a message on the google classroom or ask one of your classmates).</p>
+</section>
+</section>
+<section id="practice-questions-affine-ciphers" class="level1">
+<h1>Practice questions: affine ciphers</h1>
+<ol type="1">
+<li>Using an affine cipher with <span class="math inline">\(\alpha = 13\)</span> and <span class="math inline">\(\beta = 9\)</span>, encrypt the Ukrainian work ‘так’.</li>
+<li>An affine cipher with <span class="math inline">\(\alpha = 3\)</span> and <span class="math inline">\(\beta = 21\)</span> has been used to encrypt an English word. The ciphertext is, ‘FLLI’ what is the plaintext?</li>
+<li>Which of the following would NOT work as an affine cipher using the Ukrainian alphabet? (Hint: the Ukrainian alphabet has 33 letters)
+<ol type="1">
+<li><span class="math inline">\(\text{Ciphertext} = 3 \times \text{Plaintext} + 10 \text{ (mod 33)}\)</span></li>
+<li><span class="math inline">\(\text{Ciphertext} = 7 \times \text{Plaintext} + 17 \text{ (mod 33)}\)</span></li>
+<li><span class="math inline">\(\text{Ciphertext} = 22 \times \text{Plaintext} + 31 \text{ (mod 33)}\)</span></li>
+</ol></li>
+<li>Have a go at coming up with an affine cipher yourself! Choose a word (English or Ukrainian), and choose a valid <span class="math inline">\(\alpha\)</span> and <span class="math inline">\(\beta\)</span>, then encrypt the message. When we do our lesson on affine ciphers we will decrypt your example as a class.</li>
+<li>I have an affine cipher using the Ukrainian alphabet. The plaintext letter ‘е’ gets encrypted into the ciphertext letter ‘в’, and the plaintext letter ‘п’ gets encrypted into the ciphertext letter ‘ї’. What value of <span class="math inline">\(\alpha\)</span> and <span class="math inline">\(\beta\)</span> have I used?</li>
+</ol>
+<section id="questions-to-get-you-thinking-1" class="level3">
+<h3 class="anchored" data-anchor-id="questions-to-get-you-thinking-1">Questions to get you thinking</h3>
+<ol type="1">
+<li>There are 311 possible affine ciphers using the English alphabet. Can you show me why?</li>
+<li>How many possible affine ciphers are there using the Ukrainian alphabet?</li>
+<li>Imagine that there is a language that uses an alphabet with 30 letters in. How many possible affine ciphers are there using this new language? Compare the strength of an affine cipher using this new language compared the the strength of an affine cipher in English.</li>
+</ol>
+</section>
+<section id="extension-work" class="level2">
+<h2 class="anchored" data-anchor-id="extension-work">Extension work</h2>
+<p>I am including this section to answer a question which I had when I first learnt about this topic. Please note that this section is not needed to understand any of the content further on in this course, it is only here in case any of you are interested in learning a little bit more Maths. The question I want to answer is:<br> <em>‘Why does <span class="math inline">\(\alpha\)</span> have to be coprime to the number of letters in the alphabet that we’re using?’</em> <br></p>
+<p>The first thing we need to ask ourselves is, <em>‘Why does a cipher work?’</em>, and one of the reasons why a cipher works is because it maps each letter from the plaintext onto one unique letter in the ciphertext. In other words, no two letters in the plaintext will map to the same letter in the ciphertext. If this did happen then it would be impossible to decrypt the ciphertext, as you would not know which letter from the plaintext was used.<br> For example, imagine a cipher mapped the letter ‘A’ and the letter ‘G’ to the letter ‘K’. If I then gave you the letter ‘K’ and asked you which letter in the plaintext was encrypted to give you ‘K’, you would have no idea because it could be either ‘A’ or ‘G’.</p>
+<p>So, we know that two letters in the ciphertext cannot be equal to each other if they have come from different plaintext letters. Now to answer our question of why <span class="math inline">\(\alpha\)</span> has to be coprime, we are going to use a technique called proof by contradiction. If we want to prove that <span class="math inline">\(\alpha\)</span> has to be coprime with 26 (for the English alphabet), then we need to prove it is impossible to have a valid cipher when <span class="math inline">\(\alpha\)</span> is <strong>not</strong> coprime with 26. I know that this might be confusing if you have never seen proof by contradiction before, so if you haven’t, then I would recommend reading about it or asking me in the lesson. Proof by contradiction is a very powerful tool, so if you plan on doing a lot of Maths in the future, then I recommend learning about it now.</p>
+<p>Anyway, back to our proof. Imagine we have some affine cipher with an <span class="math inline">\(\alpha\)</span> which is not coprime to 26. We can now choose two values from the plaintext <span class="math inline">\(n\)</span> and <span class="math inline">\(m\)</span> (remember these represent numbers, and not letters). If these did represent the same letters in the ciphertext, then we would get: <span class="math display">\[ \alpha n + \beta \equiv \alpha m + \beta \text{ (mod 26)}\]</span></p>
+<p>Immediately we can take away <span class="math inline">\(\beta\)</span> from both sides to get: <span class="math display">\[ \alpha n \equiv \alpha m \text{ (mod 26)}\]</span></p>
+<p>If we know that <span class="math inline">\(\alpha\)</span> is coprime with 26, then there will be some value of <span class="math inline">\(\alpha\)</span> which is a factor of 26. There must also be some value of <span class="math inline">\(n\)</span> such that <span class="math inline">\(\alpha n\)</span> is equal to a multiple of 26 (for example, <span class="math inline">\(\alpha\)</span> = 2 and <span class="math inline">\(n\)</span> =13). This means that if <span class="math inline">\(\alpha n\)</span> is equal to a multiple of 26, then we will get: <span class="math display">\[\alpha n \equiv \alpha m \text{(mod 26)} \implies 0 \equiv \alpha m \text{ (mod 26)}\]</span></p>
+<p>This equation is true when <span class="math inline">\(n=m\)</span>, which is good because if <span class="math inline">\(n=m\)</span> then we have the same letter in the plaintext being mapped to the same letter in the ciphertext. However, this equation is also true for <span class="math inline">\(m=0\)</span>, which will break our cipher as it means that two different letters in the plaintext are being mapped to the same letter in the ciphertext. We know that <span class="math inline">\(n\)</span> is not equal to zero as we said earlier that <span class="math inline">\(\alpha n\)</span> is a multiple of 26, which cannot be true if <span class="math inline">\(n\)</span> is zero. Therefore, in order to have a valid affine cipher, <span class="math inline">\(\alpha\)</span> has to be coprime with 26.</p>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

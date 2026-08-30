@@ -19,5 +19,27 @@
     "crumbs": [
       "Home"
     ]
+  },
+  {
+    "objectID": "Lesson 2.html",
+    "href": "Lesson 2.html",
+    "title": "Section 1: Prime factor decomposition",
+    "section": "",
+    "text": "Lesson 2\nWithin this lesson, we will learn about how to find the prime factors of a number. We will then learn the definition of a coprime number. Lastly, you will be introduced to a new cipher!",
+    "crumbs": [
+      "Lessons",
+      "Lesson 2"
+    ]
+  },
+  {
+    "objectID": "Lesson 2.html#extension-work",
+    "href": "Lesson 2.html#extension-work",
+    "title": "Section 1: Prime factor decomposition",
+    "section": "Extension work",
+    "text": "Extension work\nI am including this section to answer a question which I had when I first learnt about this topic. Please note that this section is not needed to understand any of the content further on in this course, it is only here in case any of you are interested in learning a little bit more Maths. The question I want to answer is: ‘Why does \\(\\alpha\\) have to be coprime to the number of letters in the alphabet that we’re using?’ \nThe first thing we need to ask ourselves is, ‘Why does a cipher work?’, and one of the reasons why a cipher works is because it maps each letter from the plaintext onto one unique letter in the ciphertext. In other words, no two letters in the plaintext will map to the same letter in the ciphertext. If this did happen then it would be impossible to decrypt the ciphertext, as you would not know which letter from the plaintext was used. For example, imagine a cipher mapped the letter ‘A’ and the letter ‘G’ to the letter ‘K’. If I then gave you the letter ‘K’ and asked you which letter in the plaintext was encrypted to give you ‘K’, you would have no idea because it could be either ‘A’ or ‘G’.\nSo, we know that two letters in the ciphertext cannot be equal to each other if they have come from different plaintext letters. Now to answer our question of why \\(\\alpha\\) has to be coprime, we are going to use a technique called proof by contradiction. If we want to prove that \\(\\alpha\\) has to be coprime with 26 (for the English alphabet), then we need to prove it is impossible to have a valid cipher when \\(\\alpha\\) is not coprime with 26. I know that this might be confusing if you have never seen proof by contradiction before, so if you haven’t, then I would recommend reading about it or asking me in the lesson. Proof by contradiction is a very powerful tool, so if you plan on doing a lot of Maths in the future, then I recommend learning about it now.\nAnyway, back to our proof. Imagine we have some affine cipher with an \\(\\alpha\\) which is not coprime to 26. We can now choose two values from the plaintext \\(n\\) and \\(m\\) (remember these represent numbers, and not letters). If these did represent the same letters in the ciphertext, then we would get: \\[ \\alpha n + \\beta \\equiv \\alpha m + \\beta \\text{ (mod 26)}\\]\nImmediately we can take away \\(\\beta\\) from both sides to get: \\[ \\alpha n \\equiv \\alpha m \\text{ (mod 26)}\\]\nIf we know that \\(\\alpha\\) is coprime with 26, then there will be some value of \\(\\alpha\\) which is a factor of 26. There must also be some value of \\(n\\) such that \\(\\alpha n\\) is equal to a multiple of 26 (for example, \\(\\alpha\\) = 2 and \\(n\\) =13). This means that if \\(\\alpha n\\) is equal to a multiple of 26, then we will get: \\[\\alpha n \\equiv \\alpha m \\text{(mod 26)} \\implies 0 \\equiv \\alpha m \\text{ (mod 26)}\\]\nThis equation is true when \\(n=m\\), which is good because if \\(n=m\\) then we have the same letter in the plaintext being mapped to the same letter in the ciphertext. However, this equation is also true for \\(m=0\\), which will break our cipher as it means that two different letters in the plaintext are being mapped to the same letter in the ciphertext. We know that \\(n\\) is not equal to zero as we said earlier that \\(\\alpha n\\) is a multiple of 26, which cannot be true if \\(n\\) is zero. Therefore, in order to have a valid affine cipher, \\(\\alpha\\) has to be coprime with 26.",
+    "crumbs": [
+      "Lessons",
+      "Lesson 2"
+    ]
   }
 ]

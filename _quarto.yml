@@ -1,11 +1,12 @@
 format:
   html:
     page-layout: full
-
 project:
   type: website
   output-dir: docs
-
+resources:
+  - pfdfolder/**
+  - pfdfolder2/**
 website:
   title: "Svitlo Cryptography Course"
   sidebar:
@@ -17,3 +18,11 @@ website:
          contents:
            - text: "Lesson 1"
              href: Lesson 1.ipynb
+           - text: "Lesson 2"
+             href: Lesson 2.ipynb
+           - text: "Lesson 3"
+             href: Lesson 3.ipynb
+           - text: "Lesson 4"
+             href: Lesson 4.ipynb
+           - text: "Lesson 5"
+             href: Lesson 5.ipynb
