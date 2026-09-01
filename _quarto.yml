@@ -7,6 +7,9 @@ project:
 resources:
   - pfdfolder/**
   - pfdfolder2/**
+  - Euclidfolder/**
+  - Euclidfolder2/**
+  - ExEuclidfolder/**
 website:
   title: "Svitlo Cryptography Course"
   sidebar:
