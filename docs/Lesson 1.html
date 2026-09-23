@@ -330,7 +330,15 @@ window.Quarto = {
 </div>
 </div>
 <p>This is easy to understand, as <span class="math inline">\(2+8=10\)</span>. But what happens if we wait another 8 hours?</p>
-<p>from IPython.display import Image, display display(Image(filename=‘Clock mod example 3.png’, height=350, width=800))</p>
+<div id="cell-clock-mod-example-3" class="cell" data-execution_count="1">
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Lesson 1_files/figure-html/clock-mod-example-3-output-1.png" id="clock-mod-example-3" width="800" height="350" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
 <p>As you can see, waiting another 8 hours means it will go to 6 o’clock. On this clock we cannot have any number which is 12 or greater. This means when we go past the number 11, we have to take away 12 until we get a number between zero and eleven inclusive. So when we add 8 hours the seconds time what we are doing is: <span class="math inline">\(10+8=18\)</span>, but because we know that <span class="math inline">\(18\)</span> is 12 or greater, then we have to take away 12. When we take away 12 we get <span class="math inline">\(18-12=6\)</span>, which is why the clock shows 6 o’clock. We will now look at a spinner which only has 4 numbers.</p>
 <div id="cell-spinner-mod-example" class="cell" data-execution_count="10">
 <div class="cell-output cell-output-display">
