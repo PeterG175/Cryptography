@@ -228,7 +228,214 @@ window.Quarto = {
 </div>
 </div>
 </div>
-<p>Now that we have our plaintext in number form, we can convert our key into numbers</p>
+<p>Now that we have our plaintext in number form, we can convert our key into numbers. Doing this we get:</p>
+<p><span class="math display">\[\text{Horse}=7,14,17,18,4\]</span></p>
+<p>Next we will put the key next to the plaintext in the table.</p>
+<div id="cell-Vigenere-cipher-example-12" class="cell" data-execution_count="1">
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Lesson 4_files/figure-html/vigenere-cipher-example-12-output-1.png" id="vigenere-cipher-example-12" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>To get the ciphertext, we need to add the plaintext to the key. As we already have all the numbers in this table, then it becomes quite easy to add the numbers together. Just remember that all the calculations are done <span class="math inline">\(\text{mod 26}\)</span>. So for example, in the 3rd column, we have <span class="math inline">\(24+17\)</span> which is <span class="math inline">\(41\)</span>, however as this is greater than <span class="math inline">\(26\)</span> we need to take <span class="math inline">\(26\)</span> away from <span class="math inline">\(41\)</span>. Hence <span class="math inline">\(24+17=41 \equiv 15 \text{ (mod 26)}\)</span>.</p>
+<p>Adding up all the numbers, we get:</p>
+<div id="cell-Vigenere-cipher-example-13" class="cell" data-execution_count="2">
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Lesson 4_files/figure-html/vigenere-cipher-example-13-output-1.png" id="vigenere-cipher-example-13" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Now our final step is to convert these numbers back into letters. This will give us our final table:</p>
+<div id="cell-Vigenere-cipher-example-14" class="cell" data-execution_count="3">
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Lesson 4_files/figure-html/vigenere-cipher-example-14-output-1.png" id="vigenere-cipher-example-14" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>And that gives us our ciphertext!</p>
+<p>So to answer the question, encrypting the message ‘<span class="math inline">\(\text{Do you want to play chess}\)</span>’ using a Vigenere cipher with the keyword as ‘Horse’, will give the ciphertext: <br> ‘<span class="math inline">\(\text{KCPGYDOFLXVDCSCJVVKW}\)</span>’.</p>
+<p>Before we look at another example, I think it’s a good idea to pause for a moment to look at what’s happened to each letter in the previous example. We can see that in the plaintext, we have a letter ‘O’ in the 2nd and 4th columns. In a shift or affine cipher, these letters would be encrypted to the same ciphertext letter. However, as we can see, the first letter ‘O’ gets encrypted to the ciphertext letter ‘C’ and the second ‘O’ gets encrypted to the ciphertext letter ‘G’. The same plaintext letters get mapped to different ciphertext letters, which means a standard frequency analysis will not be able to decrypt the ciphertext. <br> More good news is that it is still easy to decrpyt the ciphertext if you know the keyword, all you have to do is subtract the keyword from the ciphertext to get back to the plaintext.</p>
+</section>
+<section id="example-2" class="level3">
+<h3 class="anchored" data-anchor-id="example-2">Example 2</h3>
+<p>For this question we will need our Ukrainian letters-to-numbers table.</p>
+<div id="cell-ukrainian-alphabet-in-numbers" class="cell" data-execution_count="1">
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Lesson 4_files/figure-html/ukrainian-alphabet-in-numbers-output-1.png" id="ukrainian-alphabet-in-numbers" width="1000" height="100" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>The ciphertext ‘ядaднрруцнгплхкюїґaгяц’ has been encrypted using a Vigenere cipher with the keyword ‘Апельсин’. What is the plaintext?</p>
+<p>We will start this question in the same way that we start all of these encryption/decryption problems, by converting the letters into numbers. When we change the ciphertext into numbers we will get:</p>
+<div id="cell-Vigenere-cipher-example-21" class="cell" data-execution_count="4">
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Lesson 4_files/figure-html/vigenere-cipher-example-21-output-1.png" id="vigenere-cipher-example-21" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Now we have to do a bit of thinking. We know that for a Vigenere cipher: <span class="math inline">\(c = p + k \text{ (mod 33)}\)</span>. However, if we want to find the plaintext, then we want to take the keyword away from the plaintext. So we have: <span class="math display">\[p = c - k \text{ (mod 33)}\]</span></p>
+<p>We can now convert the keyword into letters:</p>
+<div id="cell-Vigenere-cipher-example-22" class="cell" data-execution_count="5">
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Lesson 4_files/figure-html/vigenere-cipher-example-22-output-1.png" id="vigenere-cipher-example-22" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>We now need to subtract the keyword away from the ciphertext:</p>
+<div id="cell-Vigenere-cipher-example-23" class="cell" data-execution_count="6">
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Lesson 4_files/figure-html/vigenere-cipher-example-23-output-1.png" id="vigenere-cipher-example-23" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>As the ciphertext minus the keyword is equal to the plaintext, then our final step is to convert the numbers back into letters. Doing this will give us:</p>
+<div id="cell-Vigenere-cipher-example-24" class="cell" data-execution_count="7">
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Lesson 4_files/figure-html/vigenere-cipher-example-24-output-1.png" id="vigenere-cipher-example-24" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>We now have our plaintext, which (when we put in some spaces) will give us, ‘Я піду в магазини вранці’.</p>
+<p>Now we will look at some practice questions using a Vigenere cipher.</p>
+</section>
+<section id="practice-questions-vigenere-cipher" class="level3">
+<h3 class="anchored" data-anchor-id="practice-questions-vigenere-cipher">Practice questions: Vigenere cipher</h3>
+<ol type="1">
+<li>Encrypt the plaintext message ‘Я хотів би кілька олівців’ using a Vigenere cipher with the keyword ‘школа’.</li>
+<li>Decrypt the ciphertext message ‘tvovmksqphcdiszscfobz’, where a Vigenere cipher with the keyword ‘Book’ has been used.</li>
+</ol>
+</section>
+</section>
+<section id="section-2-autokey-cipher" class="level1">
+<h1>Section 2: Autokey cipher</h1>
+<p>An autokey cipher is another cipher which is stronger that a simple substitution cipher. This cipher uses a <em>primer</em> key which is put infront of the plaintext to encrypt the first few plaintext letters, then the plaintext is used to ecrypt further letters! This sounds unusual but it should make sense using an example.</p>
+<section id="example-1-1" class="level3">
+<h3 class="anchored" data-anchor-id="example-1-1">Example 1</h3>
+<p>Using an autokey cipher, encrypt the message ‘Cryptography is fun’ using the primer ‘study’.</p>
+<p>The first step is to convert our message from letters into numbers:</p>
+<div id="cell-Autokey-cipher-example-11" class="cell" data-execution_count="8">
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Lesson 4_files/figure-html/autokey-cipher-example-11-output-1.png" id="autokey-cipher-example-11" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Now we put our primer key in the first part of the message, and then use the plaintext as our encryption key.</p>
+<div id="cell-Autokey-cipher-example-12" class="cell" data-execution_count="9">
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Lesson 4_files/figure-html/autokey-cipher-example-12-output-1.png" id="autokey-cipher-example-12" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>We can then convert our key into numbers and add the plaintext to the key to give us the ciphertext.</p>
+<div id="cell-Autokey-cipher-example-13" class="cell" data-execution_count="10">
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Lesson 4_files/figure-html/autokey-cipher-example-13-output-1.png" id="autokey-cipher-example-13" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>So encrypting the message ‘Cryptography is fun’ using an autokey cipher with primer ‘Study’ will give the ciphertext ‘UKSSRQXPPADEZSUBL’.</p>
+<p>In our next example, we will look at how to decrypt an autokey cipher when you already know the primer.</p>
+</section>
+<section id="example-2-1" class="level3">
+<h3 class="anchored" data-anchor-id="example-2-1">Example 2</h3>
+<p>I have ecrypted a secret message using an autokey cipher with the primer being ‘Scooby’. The ciphertext is ‘AYWZMNTWGHTJSMWZWZ’, what is the plaintext?</p>
+<p>This encryption takes a bit longer to break than other ciphers that we’ve seen so far. There is probably a quicker way to solve it than the method I am going to show you, however I think this method is quite intuitive. We will have to break down our ciphertext into blocks and then decrypt each block seperately.</p>
+<p>As the primer is 6 letters long, we will break the first 6 letters of the ciphertext to begin with. As usual, we convert the key and ciphertext into numbers.</p>
+<div id="cell-Autokey-cipher-example-21" class="cell" data-execution_count="11">
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Lesson 4_files/figure-html/autokey-cipher-example-21-output-1.png" id="autokey-cipher-example-21" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>As we are decrypting the message (and not encrypting it), we will have to take the primer away from the ciphertext. Remember that all the calculations are done with <span class="math inline">\(\text{mod 26}\)</span> This will give us the following:</p>
+<div id="cell-Autokey-cipher-example-22" class="cell" data-execution_count="12">
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Lesson 4_files/figure-html/autokey-cipher-example-22-output-1.png" id="autokey-cipher-example-22" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Then we will convert this back into text:</p>
+<div id="cell-Autokey-cipher-example-23" class="cell" data-execution_count="14">
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Lesson 4_files/figure-html/autokey-cipher-example-23-output-1.png" id="autokey-cipher-example-23" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Now that we have our first part of the plaintext, we need to use this to help decrypt the next block of our ciphertext.</p>
+<p>Our next block of ciphertext will also be 6 letters long, which means it is ‘TWGHTJ’. We will convert that part of the ciphertext into numbers, then take our first block of plaintext away from it. Then by converting the answer back into letters, we get this table:</p>
+<div id="cell-Autokey-cipher-example-24" class="cell" data-execution_count="15">
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Lesson 4_files/figure-html/autokey-cipher-example-24-output-1.png" id="autokey-cipher-example-24" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>We only have 6 more letters of our ciphertext to decrypt before we have our full message.</p>
+<p>We will use the same method as we used for the previous block.</p>
+<p>First, we convert the last block of ciphertext into numbers, this block is ‘SMWZWZ’. Then we take away the second part of the plaintext from it, this part is ‘laywit’. Then when we get our answer, we will convert it back into letters and we’ll have decrypted the final part of our ciphertext.</p>
+<p>Putting all of this into a table, we get:</p>
+<div id="cell-Autokey-cipher-example-25" class="cell" data-execution_count="16">
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Lesson 4_files/figure-html/autokey-cipher-example-25-output-1.png" id="autokey-cipher-example-25" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>This gives us our final plaintext. The secret message is ‘I will play with my dog’.</p>
+<p>Now that you know how to encrypt and decrypt using an autokey cipher, it’s time for some practice questions.</p>
+</section>
+<section id="practice-questions-autokey-cipher" class="level3">
+<h3 class="anchored" data-anchor-id="practice-questions-autokey-cipher">Practice questions: Autokey cipher</h3>
+<ol type="1">
+<li>Encrypt the message ‘I am excited for school’ using an autokey cipher with the primer ‘whiteboard’.</li>
+<li>I have encrypted a message using an autokey cipher with the primer ‘cake’. The ciphertext is ‘VHOVXPWRTIJTNTYBQPLMC’, what is the plaintext?</li>
+</ol>
 
 
 </section>
