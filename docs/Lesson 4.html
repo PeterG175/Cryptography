@@ -199,7 +199,7 @@ window.Quarto = {
 <p>Every cipher that you have seen so far has been a mono-alphabetic substitution cipher. This means that one letter in the plaintext represents one letter in the ciphertext, and you just substitute the letters. As we have already seen, this makes them easy to break using a frequency analysis. So this week, we will be investigating ciphers where one letter in the plaintext can represent multiple letters in the ciphertext. We call these ciphers poly-alphabetic ciphers.</p>
 <section id="section-1-vigenere-cipher" class="level1">
 <h1>Section 1: Vigenere cipher</h1>
-<p>Note that the first ‘e’ in Vigenere has an accent on it, but I do not know how to write that on this website.</p>
+<p>Note that the second ‘e’ in Vigenere has an accent on it, but I do not know how to write that on this website.</p>
 <p>The Vigenere cipher was first described in 1553 by Giovan Battista Bellaso in <em>La cifra del. Sig. Giovan Battista Bellaso</em> but has mistakenly been named after Blaise de Vigenere who described something similar in <em>Traite des Chiffres</em> in 1586. This cipher was not broken for 300 years because of how strong it is.</p>
 <p>In our other ciphers, our key has been a number (for a shift cipher) and two numbers (for our affine cipher). In a Vigenere cipher, our key is a word. This is sensibly called our ‘keyword’. The cipher works by converting our keyword into numbers, then calculating: <span class="math display">\[ c = p + k \text{ (mod 26)}\]</span></p>
 <p>where <span class="math inline">\(c\)</span> is the ciphertext, <span class="math inline">\(p\)</span> is the plaintext and <span class="math inline">\(k\)</span> is the keyword.</p>
